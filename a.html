@@ -1,0 +1,72 @@
+<html>
+    <head>
+
+        
+        <!-- Since there is already a rich ecosystem of ajax libraries    -->
+<!-- and collections of general-purpose utility methods, Vue core -->
+<!-- is able to remain small by not reinventing them. This also   -->
+<!-- gives you the freedom to just use what you're familiar with. -->
+<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+
+
+
+    </head>
+
+
+    <body>
+
+
+            <div id="todo-list-example">
+                    <input
+                      v-model="newTodoText"
+                      v-on:keyup.enter="addNewTodo"
+                      placeholder="Add a todo"
+                    >
+                    <ul>
+                      <li
+                        is="todo-item"
+                        v-for="(todo, index) in todos"
+                        v-bind:title="todo"
+                        v-on:remove="todos.splice(index, 1)"
+                      ></li>
+                    </ul>
+                  </div>
+
+
+               
+
+
+    </body>
+    <script>
+         Vue.component('todo-item', {
+  template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+  props: ['title']
+})
+new Vue({
+  el: '#todo-list-example',
+  data: {
+    newTodoText: '',
+    todos: [
+      'Do the dishes',
+      'Take out the trash',
+      'Mow the lawn'
+    ]
+  },
+  methods: {
+    addNewTodo: function () {
+      this.todos.push(this.newTodoText)
+      this.newTodoText = ''
+    }
+  }
+})
+            </script>
+    
+</html>
